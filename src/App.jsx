@@ -45,68 +45,76 @@ const fileToBase64 = (file) => {
  */
 const ThreeDExplorer = ({ instrument, onBack }) => {
   return (
-    <div className="fixed inset-0 z-[200] bg-slate-950 flex flex-col md:flex-row overflow-hidden animate-in slide-in-from-bottom duration-500">
+    
+    <div className="fixed inset-0 z-[200] bg-slate-950 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden animate-in slide-in-from-bottom duration-500">
+      
+
       <button 
         onClick={onBack}
-        className="absolute top-8 left-8 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-4 rounded-3xl text-white hover:bg-white/20 transition-all font-bold uppercase text-xs tracking-widest"
+        className="absolute top-4 left-4 md:top-8 md:left-8 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-3 md:px-6 md:py-4 rounded-2xl md:rounded-3xl text-white hover:bg-white/20 transition-all font-bold uppercase text-[10px] md:text-xs tracking-widest"
       >
-        <ChevronLeft size={18} /> Kembali ke Galeri
+        <ChevronLeft size={16} /> Kembali ke Galeri
       </button>
 
       
-      <div className="w-full md:w-2/3 h-[50vh] md:h-full relative bg-gradient-to-br from-indigo-950 via-slate-900 to-black flex items-center justify-center">
+      <div className="w-full md:w-2/3 h-[45vh] md:h-full relative bg-gradient-to-br from-indigo-950 via-slate-900 to-black flex items-center justify-center">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500 via-transparent to-transparent"></div>
         
         <div className="w-full h-full relative z-10">
-        {instrument.model3dUrl ? (
-        <model-viewer
-        src={instrument.model3dUrl}
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        style={{ width: '100%', height: '100%', outline: 'none' }}
-        >
-        </model-viewer>
-        ) : (
-        <div className="text-white">Model tidak ditemukan</div>
-        )}
-  </div>
+          {instrument.model3dUrl ? (
+            <model-viewer
+              src={instrument.model3dUrl}
+              camera-controls
+              auto-rotate
+              shadow-intensity="1"
+              style={{ width: '100%', height: '100%', outline: 'none' }}
+            >
+            </model-viewer>
+          ) : (
+            <div className="text-white flex items-center justify-center h-full">Model tidak ditemukan</div>
+          )}
+        </div>
       </div>
 
-      {/* Info Panel */}
-      <div className="flex-1 bg-white dark:bg-slate-900 p-12 md:p-24 flex flex-col justify-center overflow-y-auto">
-        <div className="max-w-md">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="px-4 py-1.5 bg-indigo-600 text-white rounded-full text-[10px] font-black tracking-widest uppercase">
+      
+      <div className="flex-1 bg-white dark:bg-slate-900 p-6 md:p-24 flex flex-col justify-center">
+        <div className="max-w-md mx-auto md:mx-0 w-full">
+          <div className="flex items-center gap-3 mb-4 md:mb-6">
+            <span className="px-3 py-1 bg-indigo-600 text-white rounded-full text-[9px] md:text-[10px] font-black tracking-widest uppercase">
               3D Interactive
             </span>
             <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span className="text-slate-400 dark:text-slate-500 font-bold text-xs uppercase tracking-widest">{instrument.category}</span>
+            <span className="text-slate-400 dark:text-slate-500 font-bold text-[10px] md:text-xs uppercase tracking-widest">{instrument.category}</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-[0.85] uppercase tracking-tighter mb-6">
+         
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight uppercase tracking-tighter mb-4">
             {instrument.name}
           </h1>
-          <p className="text-indigo-600 dark:text-indigo-400 font-black text-xl mb-10">{instrument.origin}</p>
           
-          <div className="h-1 w-20 bg-slate-200 dark:bg-slate-800 mb-10"></div>
+          <p className="text-indigo-600 dark:text-indigo-400 font-black text-base md:text-xl mb-6">{instrument.origin}</p>
           
-          <p className="text-slate-600 dark:text-slate-300 text-2xl leading-relaxed italic font-serif opacity-80 mb-12">
+          <div className="h-1 w-20 bg-slate-200 dark:bg-slate-800 mb-6"></div>
+          
+          {/* PERBAIKAN TEKS DESKRIPSI: text-base (HP) -> text-lg (Laptop) biar tidak terlalu raksasa */}
+          <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed italic font-serif opacity-80 mb-8">
             "{instrument.desc}"
           </p>
 
+          
           <div className="grid grid-cols-2 gap-4">
-             <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
-                <p className="text-slate-900 dark:text-white font-bold">Terverifikasi</p>
+             <div className="p-4 md:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl md:rounded-3xl border border-slate-100 dark:border-slate-800">
+                <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
+                <p className="text-slate-900 dark:text-white font-bold text-sm md:text-base">Terverifikasi</p>
              </div>
-             <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Teknologi</p>
-                <p className="text-slate-900 dark:text-white font-bold">GLTF / WebGL</p>
+             <div className="p-4 md:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl md:rounded-3xl border border-slate-100 dark:border-slate-800">
+                <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Teknologi</p>
+                <p className="text-slate-900 dark:text-white font-bold text-sm md:text-base">GLTF / WebGL</p>
              </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 };
