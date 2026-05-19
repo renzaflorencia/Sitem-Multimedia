@@ -45,10 +45,10 @@ const fileToBase64 = (file) => {
  */
 const ThreeDExplorer = ({ instrument, onBack }) => {
   return (
-    
+    // PERBAIKAN LAYOUT HP: Mengubah flex-col (HP) menjadi flex-row (Laptop). overflow-y-auto biar di HP bisa di-scroll.
     <div className="fixed inset-0 z-[200] bg-slate-950 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden animate-in slide-in-from-bottom duration-500">
       
-
+      {/* Tombol Kembali - Di HP posisinya digeser sedikit dan mengecil agar tidak menutupi 3D */}
       <button 
         onClick={onBack}
         className="absolute top-4 left-4 md:top-8 md:left-8 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-3 md:px-6 md:py-4 rounded-2xl md:rounded-3xl text-white hover:bg-white/20 transition-all font-bold uppercase text-[10px] md:text-xs tracking-widest"
@@ -56,7 +56,7 @@ const ThreeDExplorer = ({ instrument, onBack }) => {
         <ChevronLeft size={16} /> Kembali ke Galeri
       </button>
 
-      
+      {/* Visualisasi 3D - Di HP tingginya 45% layar (h-[45vh]), di laptop otomatis penuh ke samping */}
       <div className="w-full md:w-2/3 h-[45vh] md:h-full relative bg-gradient-to-br from-indigo-950 via-slate-900 to-black flex items-center justify-center">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500 via-transparent to-transparent"></div>
         
@@ -87,7 +87,7 @@ const ThreeDExplorer = ({ instrument, onBack }) => {
             <span className="text-slate-400 dark:text-slate-500 font-bold text-[10px] md:text-xs uppercase tracking-widest">{instrument.category}</span>
           </div>
           
-         
+        
           <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight uppercase tracking-tighter mb-4">
             {instrument.name}
           </h1>
@@ -320,7 +320,7 @@ export default function App() {
       </header>
 
       {/* FILTER CATEGORY */}
-      <nav className="max-w-7xl mx-auto px-10 pt-16 flex flex-wrap gap-4">
+      <nav className="max-w-7xl mx-auto px-4 md:px-10 pt-6 md:pt-16 flex flex-row gap-2 md:gap-4 overflow-x-auto no-scrollbar justify-start md:justify-start py-2">
         {/* {['Semua', 'Tradisional', 'Modern', '3D'].map((cat) =>  */}
         {['Semua', 'Tradisional', 'Modern',].map((cat) =>(
           <button
@@ -531,33 +531,33 @@ export default function App() {
       {/* DETAIL DRAWER */}
       {selectedInst && (
         <div className="fixed inset-0 z-[150] flex items-center justify-center p-8 bg-slate-950/80 backdrop-blur-xl" onClick={() => setSelectedInst(null)}>
-          <div className="bg-white dark:bg-slate-900 rounded-[4.5rem] max-w-6xl w-full overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in zoom-in duration-500 border border-white/10" onClick={e => e.stopPropagation()}>
-            <div className="md:w-[45%] h-96 md:h-auto bg-slate-100 dark:bg-slate-800 relative">
-              {selectedInst.imageUrl ? <img src={selectedInst.imageUrl} className="w-full h-full object-cover" alt={selectedInst.name} /> : <div className="w-full h-full flex items-center justify-center opacity-10 font-black text-7xl italic text-center">COLLECTION</div>}
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[4.5rem] max-w-6xl w-full overflow-y-auto md:overflow-hidden flex flex-col md:flex-row shadow-2xl border border-white/10 max-h-[90vh] md:max-h-none my-auto" onClick={e => e.stopPropagation()}>
+            <div className="md:w-[45%] h-64 md:h-auto bg-slate-100 dark:bg-slate-800 relative">
+              {selectedInst.imageUrl ? <img src={selectedInst.imageUrl} className="w-full h-full object-cover" alt={selectedInst.name} /> : <div className="w-full h-full flex items-center justify-center opacity-10 font-black text-4xl italic text-center">COLLECTION</div>}
             </div>
             <div className="p-16 md:p-24 flex-1 flex flex-col justify-center relative bg-white dark:bg-slate-900">
-              <button onClick={() => setSelectedInst(null)} className="absolute top-12 right-12 text-slate-300 hover:text-slate-900 transition-colors">
-                <X size={32} />
+              <button onClick={() => setSelectedInst(null)} className="absolute top-4 right-4 md:top-12 md:right-12 text-slate-400 hover:text-slate-900 transition-colors z-10">
+                <X size={24} />
               </button>
               
-              <div className="mb-10 text-center md:text-left">
-                <span className="text-indigo-600 dark:text-indigo-400 font-black text-[12px] tracking-[0.5em] uppercase block mb-4">{selectedInst.origin}</span>
-                <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-900 dark:text-white leading-[0.8]">{selectedInst.name}</h2>
+              <div className="mb-4 md:mb-10 text-left">
+                <span className="text-indigo-600 dark:text-indigo-400 font-black text-[10px] md:text-[12px] tracking-[0.3em] md:tracking-[0.5em] uppercase block mb-1">{selectedInst.origin}</span>
+                <h2 className="text-3xl md:text-7xl font-black uppercase tracking-tighter text-slate-900 dark:text-white leading-tight">{selectedInst.name}</h2>
               </div>
-              
-              <div className="h-24 overflow-y-auto mb-10 pr-4 custom-scrollbar">
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-2xl italic font-serif opacity-90 whitespace-pre-wrap break-words">
-                  "{selectedInst.desc}"
+        
+              <div className="mb-6 md:mb-10 pr-2">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm md:text-2xl italic font-serif opacity-90">
+                "{selectedInst.desc}"
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2 md:gap-4">
                 {selectedInst.audioUrl && (
                   <button 
                     onClick={(e) => handleToggleAudio(e, selectedInst)} 
-                    className={`w-full py-8 rounded-[2.5rem] flex items-center justify-center gap-6 text-white font-black transition-all shadow-2xl tracking-[0.2em] text-xs ${currentlyPlaying === selectedInst.id ? 'bg-red-500' : 'bg-slate-950 dark:bg-slate-700 hover:bg-indigo-600'}`}
+                    className={`w-full py-3 md:py-6 rounded-xl md:rounded-[2.5rem] flex items-center justify-center gap-3 text-white font-black text-[10px] md:text-xs tracking-widest ${currentlyPlaying === selectedInst.id ? 'bg-red-500' : 'bg-slate-950 dark:bg-slate-700 hover:bg-indigo-600'}`}
                   >
-                    {currentlyPlaying === selectedInst.id ? <Pause size={24} fill="white" /> : <Play size={24} fill="white" />} 
+                    {currentlyPlaying === selectedInst.id ? <Pause size={16} fill="white" /> : <Play size={16} fill="white" />} 
                     {currentlyPlaying === selectedInst.id ? 'HENTIKAN REKAMAN' : 'DENGARKAN BUNYI'}
                   </button>
                 )}
