@@ -45,10 +45,10 @@ const fileToBase64 = (file) => {
  */
 const ThreeDExplorer = ({ instrument, onBack }) => {
   return (
-    // PERBAIKAN LAYOUT HP: Mengubah flex-col (HP) menjadi flex-row (Laptop). overflow-y-auto biar di HP bisa di-scroll.
+    
     <div className="fixed inset-0 z-[200] bg-slate-950 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden animate-in slide-in-from-bottom duration-500">
       
-      {/* Tombol Kembali - Di HP posisinya digeser sedikit dan mengecil agar tidak menutupi 3D */}
+      
       <button 
         onClick={onBack}
         className="absolute top-4 left-4 md:top-8 md:left-8 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-3 md:px-6 md:py-4 rounded-2xl md:rounded-3xl text-white hover:bg-white/20 transition-all font-bold uppercase text-[10px] md:text-xs tracking-widest"
@@ -56,7 +56,7 @@ const ThreeDExplorer = ({ instrument, onBack }) => {
         <ChevronLeft size={16} /> Kembali ke Galeri
       </button>
 
-      {/* Visualisasi 3D - Di HP tingginya 45% layar (h-[45vh]), di laptop otomatis penuh ke samping */}
+      
       <div className="w-full md:w-2/3 h-[45vh] md:h-full relative bg-gradient-to-br from-indigo-950 via-slate-900 to-black flex items-center justify-center">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500 via-transparent to-transparent"></div>
         
@@ -167,7 +167,7 @@ export default function App() {
     } else {
       root.classList.remove('dark');
     }
-    // Debugging: Muncul di Console (F12) untuk memastikan state berubah
+    
     console.log("Dark Mode Is:", isDarkMode);
   }, [isDarkMode]);
 
@@ -201,20 +201,44 @@ export default function App() {
     }
   };
 
-  const handleFileUpload = async (e, type) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (file.size > 1000000) return alert("File terlalu besar (Maks 1MB). Gunakan file yang lebih kecil.");
+  // const handleFileUpload = async (e, type) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
+  //   if (file.size > 1000000) return alert("File terlalu besar (Maks 1MB). Gunakan file yang lebih kecil.");
     
-    try {
-      const base64 = await fileToBase64(file);
-      setFormData(prev => {
-        const newData = { ...prev, [type]: base64 };
-        if (type === 'model3dUrl' && base64) newData.category = '3D';
-        return newData;
-      });
-    } catch (err) { console.error(err); }
-  };
+  //   try {
+  //     const base64 = await fileToBase64(file);
+  //     setFormData(prev => {
+  //       const newData = { ...prev, [type]: base64 };
+  //       if (type === 'model3dUrl' && base64) newData.category = '3D';
+  //       return newData;
+  //     });
+  //   } catch (err) { console.error(err); }
+  // };
+
+const handleFileUpload = async (e, type) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 1000000) return alert("File terlalu besar (Maks 1MB). Gunakan file yang lebih kecil.");
+  
+  try {
+    let base64 = await fileToBase64(file);
+    
+    
+    if (type === 'model3dUrl') {
+      
+      if (base64.startsWith("data:application/octet-stream;base64,")) {
+        base64 = base64.replace("data:application/octet-stream;base64,", "data:model/gltf-binary;base64,");
+      }
+    }
+    
+    setFormData(prev => {
+      const newData = { ...prev, [type]: base64 };
+      if (type === 'model3dUrl' && base64) newData.category = '3D';
+      return newData;
+    });
+  } catch (err) { console.error(err); }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -265,11 +289,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-500 pb-20">
       
-      {/* {viewing3D && <ThreeDExplorer instrument={viewing3D} onBack={() => setViewing3D(null)} />} */}
+      {viewing3D && <ThreeDExplorer instrument={viewing3D} onBack={() => setViewing3D(null)} />}
 
       {/* HEADER */}
       <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 p-6 px-10">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex justify-between items-center">
           <div className="flex items-center gap-5">
             <div className="bg-indigo-600 p-3.5 rounded-3xl text-white shadow-2xl shadow-indigo-200 dark:shadow-none rotate-3 group hover:rotate-0 transition-transform cursor-pointer">
               <Music size={28} />
@@ -320,9 +344,9 @@ export default function App() {
       </header>
 
       {/* FILTER CATEGORY */}
-      <nav className="max-w-7xl mx-auto px-4 md:px-10 pt-6 md:pt-16 flex flex-row gap-2 md:gap-4 overflow-x-auto no-scrollbar justify-start md:justify-start py-2">
+      <nav className="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-16 flex flex-row gap-2 md:gap-4 overflow-x-auto no-scrollbar py-2">
         {/* {['Semua', 'Tradisional', 'Modern', '3D'].map((cat) =>  */}
-        {['Semua', 'Tradisional', 'Modern',].map((cat) =>(
+        {['Semua', 'Tradisional', 'Modern', '3D'].map((cat) =>(
           <button
             key={cat}
             onClick={() => setFilterType(cat)}
@@ -334,7 +358,7 @@ export default function App() {
       </nav>
 
       {/* INSTRUMENT LISTING */}
-      <main className="max-w-7xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+      <main className="max-w-7xl mx-auto px-6 md:px-10 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12">
         {filteredInstruments.length === 0 ? (
           <div className="col-span-full py-48 text-center bg-white dark:bg-slate-900/50 rounded-[4rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
             <Filter size={64} className="text-slate-200 dark:text-slate-700 mx-auto mb-8" />
@@ -343,21 +367,19 @@ export default function App() {
         ) : filteredInstruments.map((inst) => (
           <div 
             key={inst.id} 
-            
-            // onClick={() => inst.model3dUrl ? setViewing3D(inst) : setSelectedInst(inst)}
-            onClick={() => setSelectedInst(inst)}
-
+            onClick={() => inst.model3dUrl ? setViewing3D(inst) : setSelectedInst(inst)}
+            // onClick={() => setSelectedInst(inst)}
             className="group bg-white dark:bg-slate-900 rounded-[3.5rem] border border-slate-100 dark:border-slate-800/50 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-700 cursor-pointer relative flex flex-col h-full"
           >
             <div className="absolute top-8 right-8 z-10 flex flex-col gap-2 items-end">
-              {/* <div className={`text-[9px] font-black px-5 py-2.5 rounded-full backdrop-blur-xl border border-white/20 shadow-lg ${inst.category === '3D' ? 'bg-indigo-600 text-white animate-pulse' : 'bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-white'}`}>
+              <div className={`text-[9px] font-black px-5 py-2.5 rounded-full backdrop-blur-xl border border-white/20 shadow-lg ${inst.category === '3D' ? 'bg-indigo-600 text-white animate-pulse' : 'bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-white'}`}>
                 {inst.category.toUpperCase()}
               </div>
               {inst.model3dUrl && (
                 <div className="bg-emerald-500 text-white p-2.5 rounded-2xl shadow-lg border border-white/20">
                   <Box size={14} />
                 </div>
-              )} */}
+              )}
             </div>
 
             <div className="h-72 bg-slate-100 dark:bg-slate-800/50 relative overflow-hidden">
@@ -511,11 +533,11 @@ export default function App() {
                   <input type="file" accept="audio/*" className="hidden" onChange={(e) => handleFileUpload(e, 'audioUrl')} />
                 </label>
 
-                {/* <label className={`group flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800 border-2 border-dashed rounded-[2.5rem] cursor-pointer transition-all ${formData.model3dUrl ? 'border-amber-500 bg-amber-50/30' : 'border-slate-200 dark:border-slate-700 hover:border-amber-400'}`}>
+                <label className={`group flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800 border-2 border-dashed rounded-[2.5rem] cursor-pointer transition-all ${formData.model3dUrl ? 'border-amber-500 bg-amber-50/30' : 'border-slate-200 dark:border-slate-700 hover:border-amber-400'}`}>
                   <Box size={32} className={formData.model3dUrl ? 'text-amber-600' : 'text-slate-300 dark:text-slate-600 group-hover:text-amber-400'} />
                   <span className="text-[9px] font-black uppercase mt-3 text-slate-400 group-hover:text-amber-500 tracking-tighter text-center">3D Model (GLB/OBJ)</span>
                   <input type="file" accept=".glb,.gltf,.obj" className="hidden" onChange={(e) => handleFileUpload(e, 'model3dUrl')} />
-                </label> */}
+                </label>
               </div>
 
               <div className="pt-6">
@@ -561,14 +583,14 @@ export default function App() {
                     {currentlyPlaying === selectedInst.id ? 'HENTIKAN REKAMAN' : 'DENGARKAN BUNYI'}
                   </button>
                 )}
-                {/* {selectedInst.model3dUrl && (
+                {selectedInst.model3dUrl && (
                   <button 
                     onClick={() => { setSelectedInst(null); setViewing3D(selectedInst); }}
                     className="w-full py-8 rounded-[2.5rem] border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white font-black flex items-center justify-center gap-6 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all tracking-[0.2em] text-xs"
                   >
                     <Box size={24} /> EKSPLORASI MODEL 3D
                   </button>
-                )} */}
+                )}
               </div>
             </div>
           </div>
