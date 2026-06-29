@@ -292,14 +292,14 @@ const handleFileUpload = async (e, type) => {
       {viewing3D && <ThreeDExplorer instrument={viewing3D} onBack={() => setViewing3D(null)} />}
 
       {/* HEADER */}
-      <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 p-6 px-10">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-5">
+      <header className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 px-4 py-4 md:p-6 md:px-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-2 md:px-10 py-2 md:py-4">
+          <div className="flex items-center gap-3 md:gap-5">
             <div className="bg-indigo-600 p-3.5 rounded-3xl text-white shadow-2xl shadow-indigo-200 dark:shadow-none rotate-3 group hover:rotate-0 transition-transform cursor-pointer">
               <Music size={28} />
             </div>
             <div>
-              <h1 className="font-black text-3xl tracking-tighter uppercase leading-none">Dunia Bunyi</h1>
+              <h1 className="font-black text-xl md:text-3xl tracking-tighter uppercase leading-none">Dunia Bunyi</h1>
               <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 tracking-[0.4em] uppercase">Digital Archive</span>
             </div>
           </div>
@@ -315,7 +315,7 @@ const handleFileUpload = async (e, type) => {
             {!user ? (
                <button 
                 onClick={() => setIsAuthModalOpen(true)}
-                className="flex items-center gap-3 px-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl text-slate-900 dark:text-white font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
+                className="flex items-center justify-center gap-2 px-4 py-3 md:px-6 md:py-4 text-[9px] md:text-[10px] w-full md:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl text-slate-900 dark:text-white font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
               >
                 <Lock size={16} className="text-indigo-600" /> Login Admin
               </button>
@@ -327,7 +327,7 @@ const handleFileUpload = async (e, type) => {
                     setFormData({name:'', origin:'', desc:'', category:'Tradisional', audioUrl:'', imageUrl:'', model3dUrl:''}); 
                     setIsModalOpen(true); 
                   }} 
-                  className="bg-indigo-600 text-white px-8 py-4 rounded-3xl text-[10px] font-black flex items-center gap-3 hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 dark:shadow-none"
+                  className="bg-indigo-600 text-white px-5 py-3 md:px-8 md:py-4 rounded-3xl text-[10px] font-black flex items-center gap-3 hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 dark:shadow-none"
                 >
                   <Plus size={18} strokeWidth={3} /> TAMBAH DATA
                 </button>
@@ -350,7 +350,7 @@ const handleFileUpload = async (e, type) => {
           <button
             key={cat}
             onClick={() => setFilterType(cat)}
-            className={`px-10 py-5 rounded-full text-[10px] font-black transition-all tracking-[0.2em] uppercase border ${filterType === cat ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-2xl scale-105' : 'bg-transparent text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:border-indigo-400'}`}
+            className={`px-6 py-3 md:px-10 md:py-5 rounded-full text-[10px] font-black transition-all tracking-[0.2em] uppercase border ${filterType === cat ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-2xl scale-105' : 'bg-transparent text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:border-indigo-400'}`}
           >
             {cat}
           </button>
@@ -382,7 +382,7 @@ const handleFileUpload = async (e, type) => {
               )}
             </div>
 
-            <div className="h-72 bg-slate-100 dark:bg-slate-800/50 relative overflow-hidden">
+            <div className="h-56 md:h-72 bg-slate-100 dark:bg-slate-800/50 relative overflow-hidden">
               {inst.imageUrl ? (
                 <img src={inst.imageUrl} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={inst.name} />
               ) : (
@@ -392,9 +392,9 @@ const handleFileUpload = async (e, type) => {
               <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/10 transition-colors pointer-events-none"></div>
             </div>
 
-            <div className="p-10 flex flex-col flex-grow">
+            <div className="p-6 md:p-10 flex flex-col flex-grow">
               <p className="text-[11px] font-black text-indigo-600 dark:text-indigo-400 tracking-[0.4em] mb-3 uppercase opacity-70">{inst.origin}</p>
-              <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-tight uppercase mb-8 tracking-tighter group-hover:text-indigo-600 transition-colors">{inst.name}</h3>
+              <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight uppercase mb-8 tracking-tighter group-hover:text-indigo-600 transition-colors">{inst.name}</h3>
               
               <div className="mt-auto flex justify-between items-center">
                 <div className="flex gap-3">
@@ -440,7 +440,7 @@ const handleFileUpload = async (e, type) => {
       {/* LOGIN MODAL */}
       {isAuthModalOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-8 bg-slate-950/90 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] w-full max-w-md p-12 shadow-2xl relative border border-white/10">
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[3.5rem] w-full max-w-md p-6 md:p-12 shadow-2xl relative border border-white/10">
             <button onClick={() => setIsAuthModalOpen(false)} className="absolute top-10 right-10 text-slate-400 hover:text-slate-600 transition-colors">
               <X size={24} />
             </button>
@@ -449,14 +449,14 @@ const handleFileUpload = async (e, type) => {
               <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-indigo-500/40">
                 <Lock size={36} />
               </div>
-              <h2 className="text-4xl font-black uppercase tracking-tighter dark:text-white leading-none mb-2">Login Admin</h2>
+              <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter dark:text-white leading-none mb-2">Login Admin</h2>
               <p className="text-slate-400 text-xs font-bold tracking-widest uppercase">Akses Panel Kontrol</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
               <input 
                 type="email" required placeholder="admin@duniabunyi.com" 
-                className="w-full p-6 bg-slate-50 dark:bg-slate-800 dark:text-white border border-slate-100 dark:border-slate-700 rounded-3xl outline-none focus:border-indigo-500 font-bold transition-all"
+                className="w-full p-4 md:p-6 bg-slate-50 dark:bg-slate-800 dark:text-white border border-slate-100 dark:border-slate-700 rounded-3xl outline-none focus:border-indigo-500 font-bold transition-all"
                 value={authData.email} onChange={(e) => setAuthData({...authData, email: e.target.value})}
               />
               <input 
@@ -479,10 +479,10 @@ const handleFileUpload = async (e, type) => {
       {/* CRUD MODAL */}
       {isModalOpen && user && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/70 backdrop-blur-2xl animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-slate-900 rounded-[4rem] w-full max-w-2xl p-12 md:p-16 shadow-2xl border border-slate-100 dark:border-slate-800 overflow-y-auto max-h-[90vh]">
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[4rem] w-full max-w-2xl p-5 md:p-16 shadow-2xl border border-slate-100 dark:border-slate-800 overflow-y-auto max-h-[90vh]">
             <div className="flex justify-between items-center mb-12">
               <div>
-                <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase leading-none">{editingId ? 'Ubah Data' : 'Koleksi Baru'}</h2>
+                <h2 className="text-2xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter uppercase leading-none">{editingId ? 'Ubah Data' : 'Koleksi Baru'}</h2>
                 <p className="text-indigo-600 dark:text-indigo-400 text-[10px] font-black tracking-[0.4em] mt-3 uppercase">Master Database</p>
               </div>
               <button onClick={() => setIsModalOpen(false)} className="p-5 bg-slate-50 dark:bg-slate-800 rounded-full text-slate-400 hover:text-slate-900 transition-colors">
@@ -496,7 +496,7 @@ const handleFileUpload = async (e, type) => {
                 <input required placeholder="Contoh: Gamelan" className="w-full p-6 bg-slate-50 dark:bg-slate-800 dark:text-white border border-slate-100 dark:border-slate-700 rounded-[2rem] outline-none focus:border-indigo-500 font-bold" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
               </div>
               
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Asal Daerah</label>
                   <input required placeholder="Jawa Tengah" className="w-full p-6 bg-slate-50 dark:bg-slate-800 dark:text-white border border-slate-100 dark:border-slate-700 rounded-[2rem] outline-none focus:border-indigo-500 font-bold" value={formData.origin} onChange={(e) => setFormData({...formData, origin: e.target.value})} />
@@ -520,7 +520,7 @@ const handleFileUpload = async (e, type) => {
                 ></textarea>
               </div>
               
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 gap-6">
                 <label className={`group flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800 border-2 border-dashed rounded-[2.5rem] cursor-pointer transition-all ${formData.imageUrl ? 'border-indigo-500 bg-indigo-50/30' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-400'}`}>
                   <ImageIcon size={32} className={formData.imageUrl ? 'text-indigo-600' : 'text-slate-300 dark:text-slate-600 group-hover:text-indigo-400'} />
                   <span className="text-[9px] font-black uppercase mt-3 text-slate-400 group-hover:text-indigo-500 tracking-tighter text-center">Foto Instrumen</span>
@@ -541,7 +541,7 @@ const handleFileUpload = async (e, type) => {
               </div>
 
               <div className="pt-6">
-                <button type="submit" disabled={saving} className="w-full py-8 bg-indigo-600 text-white font-black rounded-[2.5rem] shadow-2xl shadow-indigo-500/30 active:scale-95 disabled:opacity-50 uppercase tracking-[0.3em] text-xs">
+                <button type="submit" disabled={saving} className="w-full py-4 md:py-8 bg-indigo-600 text-white font-black rounded-[2.5rem] shadow-2xl shadow-indigo-500/30 active:scale-95 disabled:opacity-50 uppercase tracking-[0.3em] text-xs">
                   {saving ? 'Sinkronisasi Database...' : 'Publikasikan ke Galeri'}
                 </button>
               </div>
@@ -557,18 +557,18 @@ const handleFileUpload = async (e, type) => {
             <div className="md:w-[45%] h-64 md:h-auto bg-slate-100 dark:bg-slate-800 relative">
               {selectedInst.imageUrl ? <img src={selectedInst.imageUrl} className="w-full h-full object-cover" alt={selectedInst.name} /> : <div className="w-full h-full flex items-center justify-center opacity-10 font-black text-4xl italic text-center">COLLECTION</div>}
             </div>
-            <div className="p-16 md:p-24 flex-1 flex flex-col justify-center relative bg-white dark:bg-slate-900">
+            <div className="p-6 md:p-24 flex-1 flex flex-col justify-center relative bg-white dark:bg-slate-900">
               <button onClick={() => setSelectedInst(null)} className="absolute top-4 right-4 md:top-12 md:right-12 text-slate-400 hover:text-slate-900 transition-colors z-10">
                 <X size={24} />
               </button>
               
               <div className="mb-4 md:mb-10 text-left">
                 <span className="text-indigo-600 dark:text-indigo-400 font-black text-[10px] md:text-[12px] tracking-[0.3em] md:tracking-[0.5em] uppercase block mb-1">{selectedInst.origin}</span>
-                <h2 className="text-3xl md:text-7xl font-black uppercase tracking-tighter text-slate-900 dark:text-white leading-tight">{selectedInst.name}</h2>
+                <h2 className="text-2xl md:text-7xl font-black uppercase tracking-tighter text-slate-900 dark:text-white leading-tight">{selectedInst.name}</h2>
               </div>
         
               <div className="mb-6 md:mb-10 pr-2">
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm md:text-2xl italic font-serif opacity-90">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-base md:text-2xl italic font-serif opacity-90">
                 "{selectedInst.desc}"
                 </p>
               </div>
@@ -586,7 +586,7 @@ const handleFileUpload = async (e, type) => {
                 {selectedInst.model3dUrl && (
                   <button 
                     onClick={() => { setSelectedInst(null); setViewing3D(selectedInst); }}
-                    className="w-full py-8 rounded-[2.5rem] border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white font-black flex items-center justify-center gap-6 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all tracking-[0.2em] text-xs"
+                    className="w-full py-4 md:py-8 rounded-[2.5rem] border-2 border-slate-900 dark:border-white text-slate-900 dark:text-white font-black flex items-center justify-center gap-6 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all tracking-[0.2em] text-xs"
                   >
                     <Box size={24} /> EKSPLORASI MODEL 3D
                   </button>
