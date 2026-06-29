@@ -346,7 +346,7 @@ const handleFileUpload = async (e, type) => {
       {/* FILTER CATEGORY */}
       <nav className="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-16 flex flex-row gap-2 md:gap-4 overflow-x-auto no-scrollbar py-2">
         {/* {['Semua', 'Tradisional', 'Modern', '3D'].map((cat) =>  */}
-        {['Semua', 'Tradisional', 'Modern', '3D'].map((cat) =>(
+        {['Semua', 'Tradisional', 'Modern'].map((cat) =>(
           <button
             key={cat}
             onClick={() => setFilterType(cat)}
@@ -533,11 +533,11 @@ const handleFileUpload = async (e, type) => {
                   <input type="file" accept="audio/*" className="hidden" onChange={(e) => handleFileUpload(e, 'audioUrl')} />
                 </label>
 
-                <label className={`group flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800 border-2 border-dashed rounded-[2.5rem] cursor-pointer transition-all ${formData.model3dUrl ? 'border-amber-500 bg-amber-50/30' : 'border-slate-200 dark:border-slate-700 hover:border-amber-400'}`}>
+                {/* <label className={`group flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800 border-2 border-dashed rounded-[2.5rem] cursor-pointer transition-all ${formData.model3dUrl ? 'border-amber-500 bg-amber-50/30' : 'border-slate-200 dark:border-slate-700 hover:border-amber-400'}`}>
                   <Box size={32} className={formData.model3dUrl ? 'text-amber-600' : 'text-slate-300 dark:text-slate-600 group-hover:text-amber-400'} />
                   <span className="text-[9px] font-black uppercase mt-3 text-slate-400 group-hover:text-amber-500 tracking-tighter text-center">3D Model (GLB/OBJ)</span>
                   <input type="file" accept=".glb,.gltf,.obj" className="hidden" onChange={(e) => handleFileUpload(e, 'model3dUrl')} />
-                </label>
+                </label> */}
               </div>
 
               <div className="pt-6">
